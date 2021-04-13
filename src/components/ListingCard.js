@@ -27,8 +27,8 @@ function ListingCard({listing, onDelete}) {
         ) : (
           <button className="emoji-button favorite" onClick={handleFavorite}>☆ </button> 
         )}
-        <strong>{"description"}</strong>
-        <span> · {"location"}</span>
+        <strong>{description}</strong>
+        <span> · {location}</span>
         <button className="emoji-button delete" onClick={handleDelete}>🗑</button>
       </div>
     </li>

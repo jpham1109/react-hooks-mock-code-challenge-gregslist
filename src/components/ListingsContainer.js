@@ -9,26 +9,27 @@ function ListingsContainer({ listings, searchText, setListings }) {
   }
   
   const filterListings = listings.filter(listing => listing.description.toLowerCase().includes(searchText.toLowerCase()))
+    .sort((a, b) => {
+      if (sorted === false) {
+        return a.id - b.id
+      } else {
+        return a.location.localeCompare(b.location)
+      }
+    })
   
   const displayListings = filterListings.map(listing => 
     <ListingCard key={listing.id} listing={listing} onDelete={onDelete} />
     )
   
-  const sortedListings = [...displayListings].sort((a, b) => b.location.localeCompare(a.location))
-  .map(listing => 
-    <ListingCard key={listing.id} listing={listing} onDelete={onDelete} />
-    )
-//delete
-function onDelete(id){
-  const updatedListings = listings.filter(listing => listing.id !== id)
-  setListings(updatedListings)
-}
+
+  function onDelete(id){
+    const updatedListings = listings.filter(listing => listing.id !== id)
+    setListings(updatedListings)
+  }
 
   return (
     <main>
-      <label>Sort by location</label>
-        <input type="checkbox" checked={sorted} onChange={handleSort}/>
-      
+      <button onClick={handleSort}>Sort by {sorted ? "Location" : "Oldest"}</button>
       <ul className="cards">
         {displayListings}
       </ul>

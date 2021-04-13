@@ -13,15 +13,22 @@ function App() {
     .then(setListings)
   }, [])
 
-  function onSearch(value){
+  function handleSearch(value){
     setSearchText(value)
+  }
+
+  function handleAddListing(newListing) {
+    setListings([...listings], newListing)
   }
 
   return (
     <div className="app">
       <Header
-      onSearch={onSearch}
+      searchText={searchText}
+      onSearch={handleSearch}
+      onAddListing={handleAddListing}
       />
+
       <ListingsContainer
       setListings={setListings}
       searchText={searchText} 
